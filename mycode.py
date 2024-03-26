@@ -1,5 +1,4 @@
 import requests
-import schedule
 import time
 
 def send_withdrawal_request():
@@ -25,10 +24,8 @@ def send_withdrawal_request():
     response = requests.post(url, headers=headers, json=payload)
     print("Response:", response.status_code)
 
-# Schedule the job to run every 5 minutes
-schedule.every(5).minutes.do(send_withdrawal_request)
-
-# Run the scheduler
+# Run the task every 5 minutes
 while True:
-    schedule.run_pending()
-    time.sleep(1)
+    send_withdrawal_request()
+    time.sleep(300)  # 5 minutes (300 seconds)
+
